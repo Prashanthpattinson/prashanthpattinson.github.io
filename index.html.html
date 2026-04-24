@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prashanth Namdigalla | Molecular Biologist</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050a0e;
+    --bg2: #0a1520;
+    --bg3: #0f1f2e;
+    --accent: #00d4ff;
+    --accent2: #00ff9d;
+    --accent3: #7b61ff;
+    --text: #e8f4f8;
+    --text-muted: #7a9bb5;
+    --border: rgba(0, 212, 255, 0.15);
+    --glow: 0 0 20px rgba(0, 212, 255, 0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* CANVAS BG */
+  #bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; width: 100%;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(5, 10, 14, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.05em;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 10%;
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 8rem;
+  }
+
+  .hero-content { max-width: 800px; }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 30px; height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1.05;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 560px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-badges {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .badge {
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 2rem;
+    font-size: 0.78rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--text-muted);
+    background: rgba(0, 212, 255, 0.05);
+    transition: all 0.3s;
+  }
+
+  .badge:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0, 212, 255, 0.1);
+    box-shadow: var(--glow);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .btn-primary {
+    padding: 0.9rem 2rem;
+    background: var(--accent);
+    color: var(--bg);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    transition: all 0.3s;
+  }
+
+  .btn-primary:hover {
+    background: #33ddff;
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    padding: 0.9rem 2rem;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    border-radius: 4px;
+    transition: all 0.3s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* SECTION HEADERS */
+  .section-header {
+    margin-bottom: 3.5rem;
+  }
+
+  .section-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent2);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .section-tag::before {
+    content: '';
+    width: 20px; height: 1px;
+    background: var(--accent2);
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    color: var(--text);
+  }
+
+  /* EDUCATION */
+  #education { background: rgba(10, 21, 32, 0.5); }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .edu-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .edu-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(to bottom, var(--accent), var(--accent3));
+  }
+
+  .edu-card:hover {
+    border-color: rgba(0, 212, 255, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 212, 255, 0.1);
+  }
+
+  .edu-degree {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+
+  .edu-uni {
+    font-size: 0.9rem;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+  }
+
+  .edu-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .edu-cgpa {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background: rgba(0, 255, 157, 0.1);
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    border-radius: 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent2);
+  }
+
+  .edu-courses {
+    margin-top: 1rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* EXPERIENCE */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    width: 1px; height: 100%;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    padding-left: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2.4rem; top: 0.3rem;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+  }
+
+  .timeline-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-role {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  .timeline-org {
+    font-size: 0.9rem;
+    color: var(--accent2);
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+
+  .timeline-advisor {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .timeline-body {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .timeline-body ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .timeline-body ul li {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .timeline-body ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.7rem;
+    top: 0.15rem;
+  }
+
+  /* SKILLS */
+  #skills { background: rgba(10, 21, 32, 0.5); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .skill-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.8rem;
+    transition: all 0.3s;
+  }
+
+  .skill-card:hover {
+    border-color: rgba(0, 212, 255, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 212, 255, 0.08);
+  }
+
+  .skill-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .skill-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    padding: 0.25rem 0.6rem;
+    background: rgba(0, 212, 255, 0.06);
+    border: 1px solid rgba(0, 212, 255, 0.12);
+    border-radius: 3px;
+    font-size: 0.72rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--text-muted);
+  }
+
+  /* PUBLICATION */
+  .pub-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .pub-card::after {
+    content: 'PUBLISHED';
+    position: absolute;
+    top: 1.2rem; right: 1.2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--accent2);
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    padding: 0.25rem 0.6rem;
+    border-radius: 2rem;
+  }
+
+  .pub-card:hover {
+    border-color: rgba(0, 212, 255, 0.4);
+    box-shadow: 0 8px 30px rgba(0, 212, 255, 0.1);
+  }
+
+  .pub-journal {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.8rem;
+  }
+
+  .pub-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: var(--text);
+    margin-bottom: 1rem;
+    line-height: 1.4;
+    max-width: 80%;
+  }
+
+  .pub-authors {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .pub-authors strong {
+    color: var(--accent2);
+  }
+
+  /* ACHIEVEMENTS */
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+  }
+
+  .achievement-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    transition: all 0.3s;
+  }
+
+  .achievement-card:hover {
+    border-color: rgba(0, 212, 255, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .achievement-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .achievement-title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  .achievement-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .achievement-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    margin-top: 0.4rem;
+  }
+
+  /* CONTACT */
+  #contact { background: rgba(10, 21, 32, 0.5); text-align: center; }
+
+  .contact-content { max-width: 600px; margin: 0 auto; }
+
+  .contact-desc {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-family: 'DM Mono', monospace;
+    transition: all 0.3s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: var(--glow);
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent3); border-radius: 2px; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 6%; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .achievements-grid { grid-template-columns: 1fr; }
+    .pub-title { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<nav>
+  <div class="nav-logo">PN // MOLECULAR BIOLOGIST</div>
+  <ul class="nav-links">
+    <li><a href="#education">Education</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-tag">Molecular Biologist & Researcher</div>
+    <h1>Namdigalla<br><em>Prashanth</em></h1>
+    <p class="hero-sub">Researcher at CSIR-CCMB, Hyderabad. Bridging fundamental biology with translational science — from epigenetics to regenerative medicine.</p>
+    <div class="hero-badges">
+      <span class="badge">Plant Epigenetics</span>
+      <span class="badge">Regenerative Biology</span>
+      <span class="badge">Cell Biology</span>
+      <span class="badge">Molecular Cloning</span>
+      <span class="badge">EMBO Journal Author</span>
+      <span class="badge">GATE XL Qualified</span>
+    </div>
+    <div class="hero-cta">
+      <a href="mailto:prashanthnamdigalla@gmail.com" class="btn-primary">Get in Touch</a>
+      <a href="https://linkedin.com/in/prashanthnamdigalla" target="_blank" class="btn-outline">LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header fade-in">
+    <div class="section-tag">Academic Background</div>
+    <h2>Education</h2>
+  </div>
+  <div class="edu-grid fade-in">
+    <div class="edu-card">
+      <div class="edu-degree">Master of Science</div>
+      <div class="edu-uni">Pondicherry University, Puducherry</div>
+      <div class="edu-meta">Biochemistry & Molecular Biology · Sep 2021 – May 2023 · 120 ECTS</div>
+      <span class="edu-cgpa">CGPA: 8.58 / 10.0</span>
+      <div class="edu-courses">Cell & Molecular Biology · Genetics · Immunology · Stem Cell & Regenerative Biology · Developmental Biology · Microbiology</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">Bachelor of Science</div>
+      <div class="edu-uni">Osmania University, Hyderabad</div>
+      <div class="edu-meta">Microbiology, Genetics & Chemistry · Jun 2018 – Jul 2021 · 180 ECTS</div>
+      <span class="edu-cgpa">CGPA: 9.15 / 10.0</span>
+      <div class="edu-courses">Genetics · Cell Biology · Microbiology · Biotechnology · Immunology · Environmental Studies</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header fade-in">
+    <div class="section-tag">Research Journey</div>
+    <h2>Experience</h2>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">SEP 2025 – PRESENT</div>
+      <div class="timeline-role">Project – Junior Research Fellow</div>
+      <div class="timeline-org">Plant Epigenetics Lab, CSIR-CCMB, Hyderabad</div>
+      <div class="timeline-advisor">Advisor: Dr. Mukesh Lodha</div>
+      <div class="timeline-body">
+        <ul>
+          <li>Restriction-based and Gateway cloning for expression vectors in <em>Arabidopsis thaliana</em> with Agrobacterium-mediated transformation</li>
+          <li>Introduced mutations in histone H3 N-terminal tail residues in a quintuple mutant background to assess epigenetic regulation during vernalization</li>
+          <li>PuP-IT based proximity labelling for TrxG complex proteins (RBL, WDR5A, ASH2R) in Arabidopsis</li>
+          <li>Biotin-based proximity labelling to understand STM gene regulation during leaf development</li>
+          <li>Biotin-streptavidin immunoprecipitation for interactome analysis from Arabidopsis extracts</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">AUG 2024 – APR 2025</div>
+      <div class="timeline-role">Project Associate – 1</div>
+      <div class="timeline-org">Facility of Neural Injury, Repair and Regeneration, CSIR-CCMB</div>
+      <div class="timeline-advisor">Advisor: Dr. B. Kiran Kumar</div>
+      <div class="timeline-body">
+        <ul>
+          <li>Investigated regenerative potential of LLOMe drug in mouse corneal injury model; data contributed to published paper in <em>The EMBO Journal</em></li>
+          <li>Differentiated hiPSCs into cardiomyocytes via sequential Wnt signalling pathway modulation</li>
+          <li>Characterised cardiomyocytes via qRT-PCR, immunocytochemistry (confocal microscopy), and functional beating analysis</li>
+          <li>Initiated groundwork for 3D cardiac organoid generation and optimised culture conditions</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">SEP 2023 – AUG 2024</div>
+      <div class="timeline-role">Project Based Student Trainee</div>
+      <div class="timeline-org">Membrane & Receptor Biology Lab, CSIR-CCMB</div>
+      <div class="timeline-advisor">Advisor: Prof. Amitabha Chattopadhyay</div>
+      <div class="timeline-body">
+        <ul>
+          <li>Investigated endocytosis of serotonin1A receptor (GPCR) under hypoxic conditions in HEK-293 cell lines</li>
+          <li>Flow cytometry (Beckman Coulter / Kaluza software) for receptor expression and apoptosis analysis</li>
+          <li>Confocal microscopy with Z-stack imaging for receptor internalization tracking and endosomal colocalization</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="timeline-item fade-in">
+      <div class="timeline-dot"></div>
+      <div class="timeline-period">DEC 2022 – JUN 2023</div>
+      <div class="timeline-role">Dissertation Student</div>
+      <div class="timeline-org">Phytomedicine, Male Reproductive Biology & Ageing Lab, Pondicherry University</div>
+      <div class="timeline-advisor">Advisor: Dr. P. Latha</div>
+      <div class="timeline-body">
+        <ul>
+          <li>Phytochemical extraction and qualitative analysis of <em>Rondeletia odorata</em> secondary metabolites (alkaloids, flavonoids, terpenoids)</li>
+          <li>GC-MS analysis for chemical composition of identified metabolites</li>
+          <li>In silico molecular docking of phytochemicals against human BACE-1 (Alzheimer's target) using AutoDock Vina and PyMOL</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header fade-in">
+    <div class="section-tag">Technical Expertise</div>
+    <h2>Skills</h2>
+  </div>
+  <div class="skills-grid fade-in">
+    <div class="skill-card">
+      <div class="skill-icon">🧬</div>
+      <div class="skill-title">Molecular Biology</div>
+      <div class="skill-tags">
+        <span class="skill-tag">PCR Genotyping</span>
+        <span class="skill-tag">RT-PCR / qPCR</span>
+        <span class="skill-tag">Western Blotting</span>
+        <span class="skill-tag">Gateway Cloning</span>
+        <span class="skill-tag">Molecular Cloning</span>
+        <span class="skill-tag">DNA/RNA Isolation</span>
+        <span class="skill-tag">SDS-PAGE</span>
+        <span class="skill-tag">Immunoprecipitation</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🔬</div>
+      <div class="skill-title">Cell Culture</div>
+      <div class="skill-tags">
+        <span class="skill-tag">HEK-293</span>
+        <span class="skill-tag">CHO</span>
+        <span class="skill-tag">C2C12</span>
+        <span class="skill-tag">A549</span>
+        <span class="skill-tag">hiPSC Culture</span>
+        <span class="skill-tag">Cardiomyocyte Diff.</span>
+        <span class="skill-tag">3D Organoids</span>
+        <span class="skill-tag">Cytotoxicity Assays</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🖥️</div>
+      <div class="skill-title">Advanced Microscopy</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Confocal (Zeiss LSM880)</span>
+        <span class="skill-tag">Olympus FV3000</span>
+        <span class="skill-tag">Fluorescence Microscopy</span>
+        <span class="skill-tag">Z-stack Imaging</span>
+        <span class="skill-tag">OCT Imaging</span>
+        <span class="skill-tag">Immunocytochemistry</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🧪</div>
+      <div class="skill-title">Flow Cytometry (FACS)</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Beckman Coulter</span>
+        <span class="skill-tag">Kaluza v1.5a</span>
+        <span class="skill-tag">Apoptosis Analysis</span>
+        <span class="skill-tag">Protein Expression</span>
+        <span class="skill-tag">Sample Preparation</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🐭</div>
+      <div class="skill-title">Animal Handling</div>
+      <div class="skill-tags">
+        <span class="skill-tag">C57BL/6 Mouse</span>
+        <span class="skill-tag">NZW Rabbit</span>
+        <span class="skill-tag">IP & Oral Dosing</span>
+        <span class="skill-tag">Organ Collection</span>
+        <span class="skill-tag">Behavioural Assays</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">💻</div>
+      <div class="skill-title">Computational Tools</div>
+      <div class="skill-tags">
+        <span class="skill-tag">AutoDock Vina</span>
+        <span class="skill-tag">PyMOL</span>
+        <span class="skill-tag">GROMACS</span>
+        <span class="skill-tag">ChimeraX</span>
+        <span class="skill-tag">GraphPad Prism</span>
+        <span class="skill-tag">SnapGene</span>
+        <span class="skill-tag">BioRender</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="section-header fade-in">
+    <div class="section-tag">Research Output</div>
+    <h2>Publications</h2>
+  </div>
+  <div class="pub-card fade-in">
+    <div class="pub-journal">THE EMBO JOURNAL · AUGUST 2025</div>
+    <div class="pub-title">Programmed cell revival from imminent cell death enhances tissue repair and regeneration</div>
+    <div class="pub-authors">
+      Kollori Dhar, Kautilya Kumar Jena, Subhash Mehto, Rinku Sahu, Krushna C Murmu, Atharva Anand Mahajan, Sibaram Behera, Ravi Kiran Putchala, Reuben Jacob Mathew, Ramyasingh Bal, Soumya Kundu, Santosh Kumar Das, Swati Chauhan, Sameekshya Satapathy, Rina Yadav, Swatismita Priyadarsini, Khyathi Ratna Padala, <strong>Prashanth Namdigalla</strong>, Sanchita Mishra, Prerana Muralidhara, Kushagra Bansal, Kesavardhana Sannula, Punit Prasad, Kiran Kumar Bokara, Divya Tej Sowpati, Anindya Ghosh-Roy, Pravati Kumari Mahapatra, Rohan Jayant Khadilkar, Ramesh Yelagandula, and Santosh Chauhan
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements" style="background: rgba(10,21,32,0.5)">
+  <div class="section-header fade-in">
+    <div class="section-tag">Recognition</div>
+    <h2>Awards & Achievements</h2>
+  </div>
+  <div class="achievements-grid fade-in">
+    <div class="achievement-card">
+      <div class="achievement-icon">🏆</div>
+      <div>
+        <div class="achievement-title">GATE XL Qualified</div>
+        <div class="achievement-desc">National-level examination for postgraduate admissions and research in sciences. Received fellowship equivalent to ~12,395 euros.</div>
+        <div class="achievement-year">2023</div>
+      </div>
+    </div>
+    <div class="achievement-card">
+      <div class="achievement-icon">🥇</div>
+      <div>
+        <div class="achievement-title">First Prize – Poster Presentation</div>
+        <div class="achievement-desc">"Evolution and Immunotherapeutic Effects of CAR-T Cell Therapy" – Dept. of Biochemistry and Molecular Biology, Pondicherry University.</div>
+        <div class="achievement-year">Feb 2023</div>
+      </div>
+    </div>
+    <div class="achievement-card">
+      <div class="achievement-icon">🎖️</div>
+      <div>
+        <div class="achievement-title">6th Rank Nationwide – TGRJC-CET</div>
+        <div class="achievement-desc">Secured 6th rank nationwide in TGRJC-CET 2021, showcasing exceptional academic merit in a highly competitive entrance examination.</div>
+        <div class="achievement-year">2021</div>
+      </div>
+    </div>
+    <div class="achievement-card">
+      <div class="achievement-icon">📜</div>
+      <div>
+        <div class="achievement-title">Pondicherry University Entrance – Qualified</div>
+        <div class="achievement-desc">Gained admission to a prestigious Life Sciences program in the Department of Biochemistry and Molecular Biology.</div>
+        <div class="achievement-year">2021</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-content fade-in">
+    <div class="section-tag" style="justify-content: center;">Let's Connect</div>
+    <h2 style="margin-bottom: 1rem;">Get In Touch</h2>
+    <p class="contact-desc">Currently based in Hyderabad, India. Open to PhD opportunities in Europe and international research collaborations.</p>
+    <div class="contact-links">
+      <a href="mailto:prashanthnamdigalla@gmail.com" class="contact-link">✉ prashanthnamdigalla@gmail.com</a>
+      <a href="https://linkedin.com/in/prashanthnamdigalla" target="_blank" class="contact-link">in LinkedIn</a>
+      <a href="https://orcid.org/0009-0001-5723-5690" target="_blank" class="contact-link">🔬 ORCID</a>
+      <a href="tel:+917200135146" class="contact-link">📞 +91 720 013 5146</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 Namdigalla Prashanth · Hyderabad, India
+</footer>
+
+<script>
+  // Animated particle canvas
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const particles = [];
+  const count = 80;
+
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.3,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      opacity: Math.random() * 0.6 + 0.1,
+      color: Math.random() > 0.5 ? '0, 212, 255' : '123, 97, 255'
+    });
+  }
+
+  function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.color}, ${p.opacity})`;
+      ctx.fill();
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    });
+
+    // Connect nearby particles
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(0, 212, 255, ${0.08 * (1 - dist / 120)})`;
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
